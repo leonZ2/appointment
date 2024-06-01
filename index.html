@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quieres ir a ver Haikyu conmigo al cine?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 139, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .btn {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: #1e90ff;
+            color: white;
+            border: 2px solid #00bfff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #00bfff;
+            border-color: #1e90ff;
+        }
+        .btn-no {
+            background-color: #ff4d4d;
+            border-color: #cc0000;
+        }
+        .btn-no:hover {
+            background-color: #cc0000;
+            border-color: #ff4d4d;
+        }
+        .message {
+            display: none;
+            margin-top: 20px;
+            font-size: 20px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question">¿Quieres ir a ver Haikyu conmigo al cine?</div>
+        <div class="buttons">
+            <button class="btn" id="yesButton">Sí</button>
+            <button class="btn btn-no" id="noButton">No</button>
+        </div>
+        <div class="message" id="message">Sabía que dirías que sí</div>
+        <div class="message" id="noOptionMessage">Esta no es una opción, elige otra</div>
+        <div class="message" id="altMessage">Sabía que dirías que sí</div>
+    </div>
+
+    <script>
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const message = document.getElementById('message');
+        const noOptionMessage = document.getElementById('noOptionMessage');
+        const altMessage = document.getElementById('altMessage');
+
+        function showYesMessage() {
+            message.style.display = 'block';
+            noOptionMessage.style.display = 'none';
+            altMessage.style.display = 'none';
+        }
+
+        function showAltMessage() {
+            message.style.display = 'none';
+            noOptionMessage.style.display = 'none';
+            altMessage.style.display = 'block';
+        }
+
+        yesButton.addEventListener('click', showYesMessage);
+
+        noButton.addEventListener('click', function() {
+            noOptionMessage.style.display = 'block';
+            noButton.textContent = 'Sí';
+            yesButton.textContent = 'Sí';
+            noButton.classList.remove('btn-no');
+            noButton.classList.add('btn');
+            setTimeout(() => {
+                noOptionMessage.style.display = 'none';
+            }, 3000);
+            noButton.removeEventListener('click', arguments.callee);
+            noButton.addEventListener('click', showAltMessage);
+        });
+    </script>
+</body>
+</html>
